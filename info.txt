@@ -1,0 +1,4 @@
+name = Bunnyhop Mod
+author = Snazzah
+description = Bunnyhop mechanics in Teardown. Be like phoon!
+tags = Gameplay

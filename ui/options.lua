@@ -30,7 +30,7 @@ function pageRenderMain()
 			UiWidth() - (pagePad * 2)
 		)
 		h = h + slH + 30
-		if abhClicked then
+		if slClicked then
 			enableSpeedLoop = not enableSpeedLoop
 		end
 		UiTranslate(0, slH + 30)

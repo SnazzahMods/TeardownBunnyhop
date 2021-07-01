@@ -1,0 +1,11 @@
+Bunnyhop (bhop) mechanics in Teardown. Be like phoon!
+Make sure to check the options to see what you can customize!
+
+[h1]Features[/h1]
+- Customizable Bunnyhop speedometer (Hoppometer)
+- Special SFX & VFX based on speed
+- Strafe mechanic options
+- 2 movement types
+
+GitHub Repository: https://github.com/Snazzah/TeardownBunnyhop
+It's not perfect, but it's something.

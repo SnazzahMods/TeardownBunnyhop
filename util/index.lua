@@ -19,3 +19,11 @@ function fixMoveSpeed()
 		moveSpeed = 0
 	end
 end
+
+function NumLerp(a, b, t)
+	return (a * (1 - t)) + (b * t)
+end
+
+function VecDir(a, b)
+	return VecNormalize(VecSub(b, a))
+end

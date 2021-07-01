@@ -1,5 +1,5 @@
 moddataPrefix = "savegame.mod."
-currentDataVersion = 1
+currentDataVersion = 2
 
 -- Save Utils
 	function GetDataValue(path, stype)
@@ -67,6 +67,10 @@ function migrateData()
 		SetDataValue("strafe.cap", 0.08)
 	end
 
+	if dataVersion < 2 then
+		SetDataValue("movetype", 2)
+	end
+
 	SetDataValue("version", currentDataVersion, true)
 	dataVersion = currentDataVersion
 end
@@ -77,6 +81,7 @@ function revertToDefaultData()
 	SetDataValue("autobhop", true)
 	SetDataValue("showcompat", true)
 	SetDataValue("fov", true)
+	SetDataValue("movetype", 2)
 	SetDataValue("clipAvoid.enable", true)
 	SetDataValue("clipAvoid.mult", 1)
 	SetDataValue("hoppo.enable", true)
@@ -95,6 +100,7 @@ function applyData()
 	autoBHop = GetDataValue("autobhop", "bool")
 	showCompat = GetDataValue("showcompat", "bool")
 	enableFov = GetDataValue("fov", "bool")
+	moveType = GetDataValue("movetype", "int")
 	clipAvoid = GetDataValue("clipAvoid.enable", "bool")
 	clipAvoidMult = GetDataValue("clipAvoid.mult", "float")
 	enableHoppometer = GetDataValue("hoppo.enable", "bool")
@@ -113,6 +119,7 @@ function saveData()
 	SetDataValue("autobhop", autoBHop)
 	SetDataValue("showcompat", showCompat)
 	SetDataValue("fov", enableFov)
+	SetDataValue("movetype", moveType)
 	SetDataValue("clipAvoid.enable", clipAvoid)
 	SetDataValue("clipAvoid.mult", clipAvoidMult)
 	SetDataValue("hoppo.enable", enableHoppometer)

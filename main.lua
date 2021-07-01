@@ -1,6 +1,7 @@
 #include "ui/hoppometer.lua"
 #include "ui/compat.lua"
 #include "util/data.lua"
+#include "util/bhop.lua"
 
 -- Options
 strafeMult = 1
@@ -14,6 +15,8 @@ enableFov = true
 enableSpeedLoop = true
 enableComboSound = true
 showCompat = true
+punishMoveChange = false
+moveType = 1
 
 -- Variables
 speedUpSpeed = 45
@@ -30,7 +33,10 @@ isTouchingGround = false
 groundBelow = false
 jumpTickDelay = 0
 
-speedLoop = 0
+currVelo = Vec(0, 0, 0)
+lastRawForce = Vec(0, 0, 0)
+lastRawForwardMovement = 0
+lastRawRightMovement = 0
 
 function init()
 	initData()
@@ -119,7 +125,7 @@ function tick(dt)
 	-----
 
 	-- Speed/Strafe Logic
-		if moving and moveSpeed < toWalkSpeed then
+		if moving and moveSpeed < toWalkSpeed and groundBelow then
 			-- Moving regularly
 			moveSpeed = moveSpeed + (speedUpSpeed * GetTimeStep())
 		elseif not moving and moveSpeed > 0 and (isTouchingGround or inVehicle) then
@@ -133,7 +139,7 @@ function tick(dt)
 		end
 
 		local strafe = InputValue("camerax")
-		if strafe ~= 0 then
+		if strafe ~= 0 and moving then
 			local baseStrafe = math.min(math.abs(strafe), strafeCap) * (GetTimeStep() * 25)
 			moveSpeed = moveSpeed + (baseStrafe * strafeMult)
 		end
@@ -173,6 +179,9 @@ function tick(dt)
 			rightMovement = rightMovement + 1
 		end
 
+		local rawForwardMovement = forwardMovement
+		local rawRightMovement = rightMovement
+
 		if moving then
 			lastForwardMovement = forwardMovement
 			lastRightMovement = rightMovement
@@ -207,19 +216,10 @@ function tick(dt)
 		end
 	-----
 
-	-- Apply Velocity
-		local playerTransform = GetPlayerTransform()
+	applyVelocity(playerVel, forwardMovement, rightMovement, rawForwardMovement, rawRightMovement, strafe)
 
-		local forwardInWorldSpace = TransformToParentVec(GetPlayerTransform(), Vec(0, 0, -1))
-		local rightInWorldSpace = TransformToParentVec(GetPlayerTransform(), Vec(1, 0, 0))
-
-		local forwardDirectionStrength = VecScale(forwardInWorldSpace, forwardMovement)
-		local rightDirectionStrength = VecScale(rightInWorldSpace, rightMovement)
-
-		playerVel = VecAdd(VecAdd(playerVel, forwardDirectionStrength), rightDirectionStrength)
-
-		SetPlayerVelocity(playerVel)
-	-----
+	lastRawForwardMovement = forwardMovement
+	lastRawRightMovement = rawRightMovement
 end
 
 function draw()

@@ -23,7 +23,7 @@ function nUiTitle(h)
 		UiFont("MOD/assets/ui/Roboto-Black.ttf", 35)
 		UiTextShadow(0, 0, 0, 0.5, 2.0)
 		UiColor(0, 0.807843137254902, 0.788235294117647)
-		local tw, th = UiGetTextSize('Bunny Hop Mod')
+		local tw, th = UiGetTextSize('Bunnyhop Mod')
 		UiText('Bunnyhop Mod')
 
 		UiFont("MOD/assets/ui/Roboto-Regular.ttf", 30)

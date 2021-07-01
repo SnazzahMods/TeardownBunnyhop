@@ -128,33 +128,33 @@ function pageRenderMovement()
 	local h = pagePad
 
 	-- Move Type
-	local hW, hH = nUiHeader("Movement Calculation Mode", 40)
-	h = h + hH + 10
-	UiTranslate(0, hH + 10)
+		local hW, hH = nUiHeader("Movement Calculation Mode", 40)
+		h = h + hH + 10
+		UiTranslate(0, hH + 10)
 
-	local moveTypes = {
-		{"Simple (Legacy)", "Player direction changes velocity proportional to the player. Sudden direction changes do not impact speed."},
-		{"Default", "Player direction gradually changes velocity proportinal to the world. Sudden direction changes are punished."}
-	}
+		local moveTypes = {
+			{"Simple (Legacy)", "Player direction changes velocity proportional to the player. Sudden direction changes do not impact speed."},
+			{"Default", "Player direction gradually changes velocity proportinal to the world. Sudden direction changes are punished."}
+		}
 
-	UiTranslate(20, 0)
-	for i=1, #moveTypes do
-		local mtClicked, mtW, mtH = nUiRadioItem(
-			moveTypes[i][1], moveTypes[i][2],
-			moveType == i,
-			UiWidth() - (pagePad * 2),
-			30, 25
-		)
-		h = h + mtH + 10
-		if mtClicked then
-			moveType = i
+		UiTranslate(20, 0)
+		for i=1, #moveTypes do
+			local mtClicked, mtW, mtH = nUiRadioItem(
+				moveTypes[i][1], moveTypes[i][2],
+				moveType == i,
+				UiWidth() - (pagePad * 2),
+				30, 25
+			)
+			h = h + mtH + 10
+			if mtClicked then
+				moveType = i
+			end
+			UiTranslate(0, mtH + 10)
 		end
-		UiTranslate(0, mtH + 10)
-	end
 
-	h = h + 20
-	UiTranslate(-20, 20)
------
+		h = h + 20
+		UiTranslate(-20, 20)
+	-----
 
 	-- Walk Speed
 		local wsH
